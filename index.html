@@ -31,10 +31,7 @@
     }
 
     .stage {
-      display: grid;
-      grid-template-columns: minmax(0, 430px) minmax(280px, 520px);
-      gap: 28px;
-      align-items: start;
+      display: flex;
       justify-content: center;
       padding: 26px;
     }
@@ -437,70 +434,13 @@
       cursor: pointer;
     }
 
-    .handoff {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 22px 24px;
-      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
-    }
-
-    .handoff h2 {
-      margin: 0 0 12px;
-      color: #222222;
-      font-size: 20px;
-    }
-
-    .handoff h3 {
-      margin: 22px 0 8px;
-      color: var(--teal-dark);
-      font-size: 15px;
-    }
-
-    .handoff p,
-    .handoff li {
-      color: #444444;
-      font-size: 14px;
-      line-height: 1.75;
-    }
-
-    .handoff ul {
-      margin: 8px 0 0;
-      padding-left: 1.2em;
-    }
-
-    .tokens {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .token {
-      border: 1px solid #eeeeee;
-      border-radius: 6px;
-      padding: 10px;
-      background: #fafafa;
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .token strong {
-      display: block;
-      margin-bottom: 2px;
-    }
-
     @media (max-width: 850px) {
       .stage {
-        display: block;
         padding: 16px;
       }
 
       .phone {
         position: static;
-      }
-
-      .handoff {
-        margin-top: 18px;
       }
     }
 
@@ -523,10 +463,6 @@
         border-radius: 0;
       }
 
-      .handoff {
-        border-radius: 0;
-        box-shadow: none;
-      }
     }
   </style>
 </head>
@@ -612,35 +548,6 @@
         </main>
       </div>
     </div>
-
-    <aside class="handoff">
-      <h2>開発担当向けメモ</h2>
-      <p>既存の白いセクションとボタン影を踏襲しつつ、「掲載ページの作成/管理」と「掲載者・ショップ管理/設定」の間にあるグレー余白を拡張して共有エリアを追加する案です。</p>
-
-      <h3>表示仕様</h3>
-      <ul>
-        <li>表示対象は公開中の掲載案件。複数案件は縦にカード表示します。</li>
-        <li>1案件あたり「案件名」「URLコピー」「QRコード表示」を表示します。</li>
-        <li>QRコード表示はモーダル表示。背景タップまたは閉じるボタンで戻ります。</li>
-        <li>案件が0件の場合は同じ枠内に「現在共有できる掲載案件はありません」を表示すると自然です。</li>
-      </ul>
-
-      <h3>実装時の構成案</h3>
-      <ul>
-        <li>追加位置: 掲載ページ作成/管理セクション直下、掲載者・ショップ管理/設定セクション直前。</li>
-        <li>URLコピー: Clipboard APIを使用。失敗時はURLテキストを選択可能にする代替表示を推奨。</li>
-        <li>QRコード: サーバー生成済み画像、またはフロント側QRライブラリでURLから生成。</li>
-        <li>ボタン文言はコピー後のみ短時間「コピーしました」に変更。</li>
-      </ul>
-
-      <h3>主要スタイル</h3>
-      <div class="tokens">
-        <div class="token"><strong>背景</strong>#f6f6f4 / 共有帯 #eeeeec</div>
-        <div class="token"><strong>アクセント</strong>#19aa94 / #0c8d7b</div>
-        <div class="token"><strong>注意文</strong>#f58220</div>
-        <div class="token"><strong>角丸</strong>カード 3px、案件 10px、ボタン 8px</div>
-      </div>
-    </aside>
   </div>
 
   <div class="modal-backdrop" id="qr-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
