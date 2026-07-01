@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LINK BASE 掲載案件共有UI デザイン案</title>
+  <style>
+    :root {
+      --page-bg: #f6f6f4;
+      --card-bg: #ffffff;
+      --text: #333333;
+      --muted: #8f8f8f;
+      --line: #eeeeee;
+      --teal: #19aa94;
+      --teal-dark: #0c8d7b;
+      --orange: #f58220;
+      --shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
+      --soft-shadow: 0 2px 7px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #e8edf0;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 430px) minmax(280px, 520px);
+      gap: 28px;
+      align-items: start;
+      justify-content: center;
+      padding: 26px;
+    }
+
+    .phone {
+      width: min(100%, 390px);
+      margin-inline: auto;
+      border: 9px solid #0a0a0a;
+      border-radius: 42px;
+      background: #0a0a0a;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+      overflow: hidden;
+      position: sticky;
+      top: 20px;
+    }
+
+    .screen {
+      height: 780px;
+      overflow-y: auto;
+      border-radius: 32px;
+      background: var(--page-bg);
+      scrollbar-width: none;
+    }
+
+    .screen::-webkit-scrollbar {
+      display: none;
+    }
+
+    .status {
+      height: 34px;
+      background: #ffffff;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      padding: 0 22px 6px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #111111;
+      font-size: 12px;
+    }
+
+    .header {
+      height: 58px;
+      background: #ffffff;
+      border-bottom: 1px solid #dddddd;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 13px 0 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 800;
+      color: #5b5b5b;
+      letter-spacing: 0.01em;
+      font-size: 14px;
+    }
+
+    .mark {
+      width: 18px;
+      height: 22px;
+      position: relative;
+      transform: rotate(-42deg);
+    }
+
+    .mark::before,
+    .mark::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border: 3px solid #8cc63e;
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      border-radius: 2px;
+    }
+
+    .mark::after {
+      inset: 8px 1px 0 7px;
+      border-color: #19a5a6;
+      border-right-color: transparent;
+      border-top-color: transparent;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: -4px;
+      color: #d41d2a;
+      font-size: 7px;
+      letter-spacing: 0;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .header-title {
+      margin-left: 2px;
+      color: #333333;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .menu {
+      width: 50px;
+      height: 38px;
+      border: 1px solid #dedede;
+      border-radius: 5px;
+      background: #ffffff;
+      display: grid;
+      place-items: center;
+    }
+
+    .menu span,
+    .menu::before,
+    .menu::after {
+      content: "";
+      width: 22px;
+      height: 2px;
+      border-radius: 99px;
+      background: #777777;
+      display: block;
+    }
+
+    .menu {
+      gap: 5px;
+    }
+
+    main {
+      padding: 18px 22px 26px;
+    }
+
+    h1 {
+      margin: 0 0 17px;
+      color: var(--teal);
+      font-size: 20px;
+      line-height: 1.35;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .section {
+      background: var(--card-bg);
+      margin-bottom: 22px;
+      padding: 24px 12px 25px;
+    }
+
+    .section h2 {
+      margin: 0 0 18px;
+      color: #333333;
+      font-size: 16px;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .guide p {
+      margin: 0 6px 8px;
+      color: var(--orange);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .pdf-link {
+      display: block;
+      margin-top: 6px;
+      color: #008cff;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 4px;
+      margin: 14px 0 18px;
+    }
+
+    .tile {
+      min-height: 55px;
+      border: 1px solid #f3f3f3;
+      border-radius: 9px;
+      background: #ffffff;
+      color: #777777;
+      box-shadow: var(--shadow);
+      font-size: 13px;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+    }
+
+    .tile.disabled {
+      color: #b2b2b2;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .notice {
+      margin: 0 6px;
+      color: var(--orange);
+      font-size: 14px;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .share-band {
+      margin: -3px 0 22px;
+      padding: 20px 12px 22px;
+      background: #eeeeec;
+    }
+
+    .share-card {
+      background: #ffffff;
+      border-radius: 3px;
+      padding: 18px 12px 14px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+    }
+
+    .share-title {
+      margin: 0;
+      color: #333333;
+      font-size: 16px;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .share-lead {
+      margin: 8px 0 15px;
+      color: #777777;
+      font-size: 12px;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .listing-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .listing {
+      border: 1px solid #ececec;
+      border-radius: 10px;
+      background: #ffffff;
+      padding: 11px 10px 10px;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .listing-name {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .listing-badge {
+      flex: 0 0 auto;
+      margin-top: 1px;
+      padding: 2px 6px;
+      border-radius: 99px;
+      background: #eaf8f5;
+      color: var(--teal-dark);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .share-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .share-button {
+      min-height: 40px;
+      border-radius: 8px;
+      border: 1px solid #dedede;
+      background: #ffffff;
+      color: #555555;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+    }
+
+    .share-button.copy {
+      border-color: #bfe7df;
+      color: var(--teal-dark);
+      background: #f7fffd;
+    }
+
+    .share-button.qr {
+      border-color: #dedede;
+      color: #555555;
+    }
+
+    .shop-settings {
+      padding-block: 26px 21px;
+    }
+
+    .wide-tile {
+      width: 100%;
+      min-height: 56px;
+      border: 1px solid #f3f3f3;
+      border-radius: 9px;
+      background: #ffffff;
+      color: #666666;
+      box-shadow: var(--shadow);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 4px;
+      background: #ffffff;
+      padding: 15px 6px 20px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.46);
+      z-index: 20;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+    }
+
+    .modal {
+      width: min(100%, 330px);
+      border-radius: 13px;
+      background: #ffffff;
+      padding: 22px 18px 18px;
+      text-align: center;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+    }
+
+    .modal h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .modal-url {
+      margin: 0 0 14px;
+      color: #777777;
+      font-size: 11px;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .qr-frame {
+      width: 186px;
+      height: 186px;
+      margin: 0 auto 15px;
+      padding: 11px;
+      border: 1px solid #eeeeee;
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: inset 0 0 0 6px #ffffff;
+    }
+
+    .qr-art {
+      width: 100%;
+      height: 100%;
+      image-rendering: pixelated;
+      background:
+        linear-gradient(90deg, #111 10px, transparent 10px 20px, #111 20px 30px, transparent 30px 40px, #111 40px 50px, transparent 50px 60px, #111 60px 70px, transparent 70px 80px, #111 80px 90px, transparent 90px 100px, #111 100px 110px, transparent 110px 120px, #111 120px 130px, transparent 130px 140px, #111 140px 150px, transparent 150px 160px),
+        linear-gradient(#111 10px, transparent 10px 20px, #111 20px 30px, transparent 30px 40px, #111 40px 50px, transparent 50px 60px, #111 60px 70px, transparent 70px 80px, #111 80px 90px, transparent 90px 100px, #111 100px 110px, transparent 110px 120px, #111 120px 130px, transparent 130px 140px, #111 140px 150px, transparent 150px 160px),
+        #fff;
+      background-blend-mode: multiply;
+      clip-path: polygon(0 0, 42% 0, 42% 13%, 55% 13%, 55% 0, 100% 0, 100% 42%, 87% 42%, 87% 55%, 100% 55%, 100% 100%, 59% 100%, 59% 86%, 47% 86%, 47% 100%, 0 100%, 0 58%, 13% 58%, 13% 46%, 0 46%);
+    }
+
+    .close {
+      width: 100%;
+      min-height: 43px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--teal);
+      color: #ffffff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .handoff {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 22px 24px;
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
+    }
+
+    .handoff h2 {
+      margin: 0 0 12px;
+      color: #222222;
+      font-size: 20px;
+    }
+
+    .handoff h3 {
+      margin: 22px 0 8px;
+      color: var(--teal-dark);
+      font-size: 15px;
+    }
+
+    .handoff p,
+    .handoff li {
+      color: #444444;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .handoff ul {
+      margin: 8px 0 0;
+      padding-left: 1.2em;
+    }
+
+    .tokens {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .token {
+      border: 1px solid #eeeeee;
+      border-radius: 6px;
+      padding: 10px;
+      background: #fafafa;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .token strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    @media (max-width: 850px) {
+      .stage {
+        display: block;
+        padding: 16px;
+      }
+
+      .phone {
+        position: static;
+      }
+
+      .handoff {
+        margin-top: 18px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .stage {
+        padding: 0;
+        background: var(--page-bg);
+      }
+
+      .phone {
+        width: 100%;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .screen {
+        height: auto;
+        min-height: 100vh;
+        border-radius: 0;
+      }
+
+      .handoff {
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="phone" aria-label="LINK BASE 掲載管理ページ デザインモック">
+      <div class="screen">
+        <div class="status">
+          <span>10:40</span>
+          <span class="status-icons">●●● 5G ▰</span>
+        </div>
+        <header class="header">
+          <div class="brand">
+            <span class="mark" aria-hidden="true"></span>
+            <span>LINK<small>BASE</small></span>
+            <span class="header-title">掲載管理</span>
+          </div>
+          <button class="menu" aria-label="メニュー"><span></span></button>
+        </header>
+
+        <main>
+          <h1>掲載管理トップページ</h1>
+
+          <section class="section guide">
+            <h2>掲載方法についてのご案内</h2>
+            <p>LINK BASE掲載にあたって事前に以下の資料を必ずお読みください</p>
+            <a class="pdf-link" href="#">LINK BASE掲載方法案内.pdf</a>
+          </section>
+
+          <section class="section">
+            <h2>掲載ページの作成/管理</h2>
+            <div class="service-grid">
+              <button class="tile">LINK MALL</button>
+              <button class="tile">LINK SERVICE</button>
+              <button class="tile disabled">LINK JOB</button>
+              <button class="tile disabled">LINK SHOP</button>
+            </div>
+            <p class="notice">下記の「掲載者・ショップ情報」の「基本情報」および「ショップ情報」の入力が完了している場合のみ、掲載ページの作成/管理が可能となります</p>
+          </section>
+
+          <section class="share-band" aria-labelledby="share-heading">
+            <div class="share-card">
+              <h2 class="share-title" id="share-heading">掲載中の案件を共有</h2>
+              <p class="share-lead">会員間で共有したい案件のURLコピー、またはQRコード表示ができます。</p>
+
+              <div class="listing-list">
+                <article class="listing">
+                  <div class="listing-name">
+                    <span class="listing-badge">公開中</span>
+                    <span>[テスト]みかんジュース（産地直送）</span>
+                  </div>
+                  <div class="share-actions">
+                    <button class="share-button copy" data-copy>URLコピー</button>
+                    <button class="share-button qr" data-qr-title="[テスト]みかんジュース（産地直送）" data-qr-url="https://link-base.jp/mall/sample-a">QRコード表示</button>
+                  </div>
+                </article>
+
+                <article class="listing">
+                  <div class="listing-name">
+                    <span class="listing-badge">公開中</span>
+                    <span>[テスト]フェイシャルエステ</span>
+                  </div>
+                  <div class="share-actions">
+                    <button class="share-button copy" data-copy>URLコピー</button>
+                    <button class="share-button qr" data-qr-title="[テスト]フェイシャルエステ" data-qr-url="https://link-base.jp/service/sample-b">QRコード表示</button>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <section class="section shop-settings">
+            <h2>掲載者・ショップ管理/設定</h2>
+            <button class="wide-tile">掲載者・ショップ情報</button>
+          </section>
+
+          <div class="footer-grid">
+            <button class="tile">お問合せ</button>
+            <button class="tile">注意事項など</button>
+            <button class="tile">LINK BASE トップ</button>
+            <button class="tile">ログアウト</button>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <aside class="handoff">
+      <h2>開発担当向けメモ</h2>
+      <p>既存の白いセクションとボタン影を踏襲しつつ、「掲載ページの作成/管理」と「掲載者・ショップ管理/設定」の間にあるグレー余白を拡張して共有エリアを追加する案です。</p>
+
+      <h3>表示仕様</h3>
+      <ul>
+        <li>表示対象は公開中の掲載案件。複数案件は縦にカード表示します。</li>
+        <li>1案件あたり「案件名」「URLコピー」「QRコード表示」を表示します。</li>
+        <li>QRコード表示はモーダル表示。背景タップまたは閉じるボタンで戻ります。</li>
+        <li>案件が0件の場合は同じ枠内に「現在共有できる掲載案件はありません」を表示すると自然です。</li>
+      </ul>
+
+      <h3>実装時の構成案</h3>
+      <ul>
+        <li>追加位置: 掲載ページ作成/管理セクション直下、掲載者・ショップ管理/設定セクション直前。</li>
+        <li>URLコピー: Clipboard APIを使用。失敗時はURLテキストを選択可能にする代替表示を推奨。</li>
+        <li>QRコード: サーバー生成済み画像、またはフロント側QRライブラリでURLから生成。</li>
+        <li>ボタン文言はコピー後のみ短時間「コピーしました」に変更。</li>
+      </ul>
+
+      <h3>主要スタイル</h3>
+      <div class="tokens">
+        <div class="token"><strong>背景</strong>#f6f6f4 / 共有帯 #eeeeec</div>
+        <div class="token"><strong>アクセント</strong>#19aa94 / #0c8d7b</div>
+        <div class="token"><strong>注意文</strong>#f58220</div>
+        <div class="token"><strong>角丸</strong>カード 3px、案件 10px、ボタン 8px</div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="modal-backdrop" id="qr-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <h3 id="modal-title">QRコード</h3>
+      <p class="modal-url" id="modal-url"></p>
+      <div class="qr-frame" aria-label="QRコード表示領域">
+        <div class="qr-art" aria-hidden="true"></div>
+      </div>
+      <button class="close" data-close>閉じる</button>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.querySelector("#qr-modal");
+    const modalTitle = document.querySelector("#modal-title");
+    const modalUrl = document.querySelector("#modal-url");
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const listing = button.closest(".listing");
+        const qrButton = listing.querySelector("[data-qr-url]");
+        const url = qrButton.dataset.qrUrl;
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch (error) {
+          console.warn("Clipboard copy failed in mockup", error);
+        }
+        const original = button.textContent;
+        button.textContent = "コピーしました";
+        setTimeout(() => {
+          button.textContent = original;
+        }, 1400);
+      });
+    });
+
+    document.querySelectorAll("[data-qr-url]").forEach((button) => {
+      button.addEventListener("click", () => {
+        modalTitle.textContent = button.dataset.qrTitle;
+        modalUrl.textContent = button.dataset.qrUrl;
+        modal.classList.add("is-open");
+      });
+    });
+
+    document.querySelector("[data-close]").addEventListener("click", () => {
+      modal.classList.remove("is-open");
+    });
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.classList.remove("is-open");
+      }
+    });
+  </script>
+</body>
+</html>
