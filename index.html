@@ -283,6 +283,29 @@
       box-shadow: var(--soft-shadow);
     }
 
+    .listing-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 7px;
+      color: #777777;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .listing-type {
+      padding: 3px 7px;
+      border-radius: 99px;
+      background: #f2f2f2;
+      color: #666666;
+    }
+
+    .listing-id {
+      color: #8a8a8a;
+    }
+
     .listing-name {
       display: flex;
       align-items: flex-start;
@@ -306,8 +329,8 @@
 
     .share-actions {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
     }
 
     .share-button {
@@ -317,7 +340,7 @@
       background: #ffffff;
       color: #555555;
       font: inherit;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
       cursor: pointer;
@@ -332,6 +355,12 @@
     .share-button.qr {
       border-color: #dedede;
       color: #555555;
+    }
+
+    .share-button.preview {
+      border-color: #ffd9bd;
+      color: #d96c13;
+      background: #fffaf6;
     }
 
     .shop-settings {
@@ -504,28 +533,38 @@
           <section class="share-band" aria-labelledby="share-heading">
             <div class="share-card">
               <h2 class="share-title" id="share-heading">掲載中の案件を共有</h2>
-              <p class="share-lead">会員間で共有したい案件のURLコピー、またはQRコード表示ができます。</p>
+              <p class="share-lead">会員間で共有したい案件のプレビュー、URLコピー、QRコード表示ができます。</p>
 
               <div class="listing-list">
                 <article class="listing">
+                  <div class="listing-meta">
+                    <span class="listing-type">LINK MALL</span>
+                    <span class="listing-id">ID: MALL-001</span>
+                  </div>
                   <div class="listing-name">
                     <span class="listing-badge">公開中</span>
                     <span>[テスト]みかんジュース（産地直送）</span>
                   </div>
                   <div class="share-actions">
+                    <button class="share-button preview" data-preview-url="https://link-base.jp/mall/sample-a">プレビュー</button>
                     <button class="share-button copy" data-copy>URLコピー</button>
                     <button class="share-button qr" data-qr-title="[テスト]みかんジュース（産地直送）" data-qr-url="https://link-base.jp/mall/sample-a">QRコード表示</button>
                   </div>
                 </article>
 
                 <article class="listing">
+                  <div class="listing-meta">
+                    <span class="listing-type">LINK SHOP</span>
+                    <span class="listing-id">ID: SHOP-002</span>
+                  </div>
                   <div class="listing-name">
                     <span class="listing-badge">公開中</span>
                     <span>[テスト]フェイシャルエステ</span>
                   </div>
                   <div class="share-actions">
+                    <button class="share-button preview" data-preview-url="https://link-base.jp/shop/sample-b">プレビュー</button>
                     <button class="share-button copy" data-copy>URLコピー</button>
-                    <button class="share-button qr" data-qr-title="[テスト]フェイシャルエステ" data-qr-url="https://link-base.jp/service/sample-b">QRコード表示</button>
+                    <button class="share-button qr" data-qr-title="[テスト]フェイシャルエステ" data-qr-url="https://link-base.jp/shop/sample-b">QRコード表示</button>
                   </div>
                 </article>
               </div>
@@ -579,6 +618,12 @@
         setTimeout(() => {
           button.textContent = original;
         }, 1400);
+      });
+    });
+
+    document.querySelectorAll("[data-preview-url]").forEach((button) => {
+      button.addEventListener("click", () => {
+        window.open(button.dataset.previewUrl, "_blank", "noopener");
       });
     });
 
