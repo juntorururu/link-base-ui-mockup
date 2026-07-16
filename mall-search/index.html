@@ -312,7 +312,7 @@
 
     .category-browser {
       display: grid;
-      grid-template-columns: 118px 1fr;
+      grid-template-columns: 120px 1fr;
       margin: -2px -16px -18px;
       min-height: 520px;
       background: #e9e9e9;
@@ -335,7 +335,7 @@
       background: #fff;
       color: #333;
       display: grid;
-      grid-template-columns: 38px 1fr;
+      grid-template-columns: 42px 1fr;
       align-items: center;
       gap: 6px;
       font-size: 11px;
@@ -357,11 +357,11 @@
     }
     .rail-icon {
       display: block;
-      width: 34px;
-      height: 34px;
+      width: 40px;
+      height: 40px;
       border-radius: 7px;
       object-fit: contain;
-      padding: 3px;
+      padding: 2px;
       background: #fff;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
     }
@@ -397,10 +397,10 @@
     }
     .category-tile img {
       display: block;
-      width: 58px;
+      width: 68px;
       height: 58px;
       object-fit: contain;
-      padding: 5px;
+      padding: 2px;
       border-radius: 8px;
       background: #fff;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
@@ -1049,8 +1049,34 @@
 
     const suggestions = ["香辛子 おすすめ", "香辛子 スナック", "食品 ギフト", "防災商品", "浄水器", "オーガニック 食品", "ハンドメイド"];
     function iconSrc(keyword, seed) {
-      const term = encodeURIComponent(keyword.split(",")[0].trim());
-      return `https://loremflickr.com/160/160/${term},product,white?lock=${seed}`;
+      const icons = {
+        "soy-sauce": "soy-sauce.png",
+        rice: "rice-cereal.png",
+        beans: "soybeans.png",
+        "japanese-food": "pickles.png",
+        seaweed: "seaweed.png",
+        drink: "drinks.png",
+        coffee: "drinks.png",
+        beverage: "drinks.png",
+        food: "soy-sauce.png",
+        farm: "soybeans.png",
+        appliance: "rice-cereal.png",
+        cosmetics: "drinks.png",
+        sofa: "rice-cereal.png",
+        fashion: "soybeans.png",
+        books: "seaweed.png",
+        toys: "soybeans.png",
+        pet: "pickles.png",
+        business: "seaweed.png",
+        car: "rice-cereal.png",
+        tableware: "soy-sauce.png",
+        crystal: "drinks.png",
+        handmade: "seaweed.png",
+        "emergency-kit": "rice-cereal.png"
+      };
+      const key = keyword.split(",")[0].trim();
+      const fallback = ["soy-sauce.png", "rice-cereal.png", "soybeans.png", "pickles.png", "seaweed.png", "drinks.png"][seed % 6];
+      return `assets/category-icons/${icons[key] || fallback}`;
     }
     function item(label, keyword, seed) {
       return { label, icon: iconSrc(keyword, seed) };
