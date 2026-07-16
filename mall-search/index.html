@@ -359,11 +359,11 @@
       display: block;
       width: 40px;
       height: 40px;
-      border-radius: 7px;
+      border-radius: 0;
       object-fit: contain;
-      padding: 2px;
-      background: #fff;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
     }
     .rail-label {
       overflow-wrap: anywhere;
@@ -397,13 +397,13 @@
     }
     .category-tile img {
       display: block;
-      width: 68px;
-      height: 58px;
+      width: 74px;
+      height: 60px;
       object-fit: contain;
-      padding: 2px;
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
     }
     .category-tile span {
       display: block;
@@ -1055,15 +1055,18 @@
         beans: "soybeans.png",
         "japanese-food": "pickles.png",
         seaweed: "seaweed.png",
+        "canned-food": "processed-food.png",
+        cookies: "sweets.png",
         drink: "drinks.png",
-        coffee: "drinks.png",
+        coffee: "coffee-tea.png",
         beverage: "drinks.png",
+        supplement: "coffee-tea.png",
         food: "soy-sauce.png",
         farm: "soybeans.png",
         appliance: "rice-cereal.png",
-        cosmetics: "drinks.png",
+        cosmetics: "processed-food.png",
         sofa: "rice-cereal.png",
-        fashion: "soybeans.png",
+        fashion: "sweets.png",
         books: "seaweed.png",
         toys: "soybeans.png",
         pet: "pickles.png",
@@ -1075,7 +1078,7 @@
         "emergency-kit": "rice-cereal.png"
       };
       const key = keyword.split(",")[0].trim();
-      const fallback = ["soy-sauce.png", "rice-cereal.png", "soybeans.png", "pickles.png", "seaweed.png", "drinks.png"][seed % 6];
+      const fallback = ["soy-sauce.png", "rice-cereal.png", "soybeans.png", "pickles.png", "seaweed.png", "processed-food.png", "sweets.png", "drinks.png", "coffee-tea.png"][seed % 9];
       return `assets/category-icons/${icons[key] || fallback}`;
     }
     function item(label, keyword, seed) {
